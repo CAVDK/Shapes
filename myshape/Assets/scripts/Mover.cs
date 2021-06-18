@@ -37,18 +37,22 @@ public class Mover : MonoBehaviour
         if (collision.gameObject.tag == "Walls")
         {
           
-            Debug.DrawRay(pointOfcontact, normalcontact * 100f, Color.white);
+            //Debug.DrawRay(pointOfcontact, normalcontact * 100f, Color.white);
+            //when ever collided with a wall calculate the deflectiona and reduce the velocity to zeo and then apply force
             CalculateDeflection(normalcontact, pointOfcontact);
 
         }
     }
     protected virtual void CalculateDeflection(Vector3 normal, Vector3 pointofcontact)
     {
-        // float angle = Vector3.AngleBetween(pointofcontact,normal);
-
+       
+        //calculate the vector to apply force in after collision
         Vector3 newMoveDirection = Vector2.Reflect(pointofcontact, normal);
-       // Debug.Log(newMoveDirection.normalized + "movedire");
+      
+        //zero out the velocity
         rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime);
+
+        //apply force in tat direction
         move(newMoveDirection.normalized);
     }
 
