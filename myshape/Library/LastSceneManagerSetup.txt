@@ -1,5 +1,5 @@
 sceneSetups:
-- path: E:/course projects/block Mobil/Assets/Scenes/main.unity
+- path: Assets/Scenes/mainGameplay.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
