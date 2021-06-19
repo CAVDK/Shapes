@@ -30,11 +30,7 @@ public class PlayerMovement : Mover
         }
     }
 
-    private void FixedUpdate()
-    {
-       
-
-    }
+    
     #endregion
 
     #region Functions
@@ -63,7 +59,20 @@ public class PlayerMovement : Mover
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+       // Debug.Log(collision.gameObject.name);
+
+        if(collision.gameObject.name == _spriteRenderer.name )
+        {
+            Debug.Log("ok");
+        }
+        else
+        {
+            Debug.Log("wrong shit");
+        }
+
+
+
+
     }
 
     #endregion

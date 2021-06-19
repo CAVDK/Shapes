@@ -34,7 +34,7 @@ public class Mover : MonoBehaviour
     {
         Vector3 pointOfcontact = collision.GetContact(0).point;
         Vector3 normalcontact = collision.GetContact(0).normal;
-        if (collision.gameObject.tag == "Walls")
+        if (collision.gameObject.tag == "walls")
         {
           
             //Debug.DrawRay(pointOfcontact, normalcontact * 100f, Color.white);
@@ -48,10 +48,13 @@ public class Mover : MonoBehaviour
        
         //calculate the vector to apply force in after collision
         Vector3 newMoveDirection = Vector2.Reflect(pointofcontact, normal);
-      
-        //zero out the velocity
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime);
 
+        rb.AddForce(moveForce * newMoveDirection );
+
+        //zero out the velocity
+        
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime);
+        
         //apply force in tat direction
         move(newMoveDirection.normalized);
     }

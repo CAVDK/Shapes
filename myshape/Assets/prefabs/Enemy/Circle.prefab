@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4117950807728191538}
   - component: {fileID: 4117950807728191537}
   - component: {fileID: 4117950807728191536}
-  - component: {fileID: 4117950807728191539}
-  - component: {fileID: 4117950807728191551}
-  m_Layer: 8
-  m_Name: Circle
-  m_TagString: Player
+  - component: {fileID: 8115015421781694137}
+  - component: {fileID: -1435105597562687098}
+  m_Layer: 9
+  m_Name: circle
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,13 +94,13 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.39999998
---- !u!50 &4117950807728191539
+--- !u!50 &8115015421781694137
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -119,9 +119,9 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4117950807728191551
+--- !u!114 &-1435105597562687098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c27981e1bc624845868f9824984586c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 75
-  moveForce: 100
-  minSize: 0.5
-  maxSize: 0.9
+  speed: 90
+  moveForce: 125
+  minSize: 0.6
+  maxSize: 0.8
+  moveDirection: {x: 0, y: 0, z: 0}

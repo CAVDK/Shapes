@@ -4,10 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - circleEnemy
-  - squareEnemy
-  - triangEnemy
-  - Walls
+  - _trigger
+  - walls
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +19,7 @@ TagManager:
   - Player
   - Enemy
   - Walls
-  - 
+  - Trigger
   - 
   - 
   - 

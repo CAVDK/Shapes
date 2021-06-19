@@ -6,8 +6,10 @@ public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoits;
     public GameObject[] enemies;
+   
     public float spawnWaveInterval=5f;
-    public float spawnInterval=1f;
+    private float maxSpawnWaveinterval =20f;
+    public float spawnInterval=2f;
 
     [SerializeField] int maxSpawnCount=5;
     public int activeSpawnsCount=1;
@@ -22,7 +24,7 @@ public class Spawner : MonoBehaviour
     {
         currentTime = Time.time-3f;
         //after every 20 sec increase the active spawn count by 1
-        InvokeRepeating("IncreaseSpawnCount",10f,20f);
+        InvokeRepeating("IncreaseSpawnCount",20f,20f);
     }
 
 
@@ -32,6 +34,7 @@ public class Spawner : MonoBehaviour
         spawnInterval +=activeSpawnsCount*0.2f;
 
         //increse the spawn time between waves
+        if (spawnWaveInterval > maxSpawnWaveinterval) spawnWaveInterval = maxSpawnWaveinterval;
         spawnWaveInterval += activeSpawnsCount*0.6f; 
 
         //increased the spawn count after 20 sec
@@ -85,7 +88,11 @@ public class Spawner : MonoBehaviour
         int i = Random.Range(0, enemies.Length);//enemy to spawn
         int j = Random.Range(0, spawnPoits.Length);//spawn position
         GameObject newEnemy = Instantiate(enemies[i], spawnPoits[j].position, Quaternion.identity);
-        newEnemy.GetComponent<Enemy>().JustSpawnned(spawnPoits[j].position);
+        //expensive call
+        Enemy _enemy = newEnemy.GetComponent<Enemy>();
+        _enemy.moveDirection = new Vector3(Random.Range(-2f,2f),Random.Range(0f,3.5f),0f) - spawnPoits[j].position;
+        
+        
 
         yield return new WaitForSeconds(spawnInterval);
     }
