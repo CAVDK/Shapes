@@ -43,7 +43,7 @@ public class PlayerMovement : Mover
         if (i >= playerSprite.Length)
             i = 0;
         _spriteRenderer.sprite = playerSprite[i];
-        Debug.Log(_spriteRenderer.sprite.name);
+       // Debug.Log(_spriteRenderer.sprite.name);
     }
 
     void MovePlayer()
@@ -61,13 +61,14 @@ public class PlayerMovement : Mover
     {
        // Debug.Log(collision.gameObject.name);
 
-        if(collision.gameObject.name == _spriteRenderer.name )
+        if(collision.gameObject.tag == _spriteRenderer.sprite.name )
         {
-            Debug.Log("ok");
+            //Debug.Log("ok");
         }
         else
         {
-            Debug.Log("wrong shit");
+            if (collision.gameObject.tag == "walls") return;
+            //Debug.Log("wrong shit  --  " + collision.gameObject.tag +" != " +_spriteRenderer.sprite.name);
         }
 
 

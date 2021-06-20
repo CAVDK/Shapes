@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4944223665666791713}
   m_Layer: 9
   m_Name: triangle
-  m_TagString: enemy
+  m_TagString: triangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d797a5a4ae4f2374b86303c832fb920a, type: 3}
   m_Color: {r: 0, g: 1, b: 0.963202, a: 1}
   m_FlipX: 0
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -133,8 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c27981e1bc624845868f9824984586c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 90
-  moveForce: 125
+  speed: 0.75
+  moveForce: 0
+  moveDirections: {x: 0, y: 0, z: 0}
   minSize: 0.6
   maxSize: 0.8
   moveDirection: {x: 0, y: 0, z: 0}

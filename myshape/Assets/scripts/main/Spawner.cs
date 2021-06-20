@@ -22,9 +22,9 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        currentTime = Time.time-3f;
+        currentTime = Time.time-5f;
         //after every 20 sec increase the active spawn count by 1
-        InvokeRepeating("IncreaseSpawnCount",20f,20f);
+        InvokeRepeating("IncreaseSpawnCount",25f,50f);
     }
 
 
@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
 
         //increse the spawn time between waves
         if (spawnWaveInterval > maxSpawnWaveinterval) spawnWaveInterval = maxSpawnWaveinterval;
-        spawnWaveInterval += activeSpawnsCount*0.6f; 
+        spawnWaveInterval += activeSpawnsCount*0.2f; 
 
         //increased the spawn count after 20 sec
         if (activeSpawnsCount>maxSpawnCount)
@@ -70,30 +70,44 @@ public class Spawner : MonoBehaviour
     public void  Spawn()
     {
 
-
-        finishSpawning = false;
-        for(int i=0;i<activeSpawnsCount;i++)
-        {
-            //takek any spawn point and then spawn 
-            //wait for a spawn intervall before spawnning each enemy
-            StartCoroutine("SpawnEnemy");
-        }
-        finishSpawning = true;
+        StartCoroutine("SpawnEnemy");
+       
       
        
     }
 
     IEnumerator SpawnEnemy()
     {
-        int i = Random.Range(0, enemies.Length);//enemy to spawn
-        int j = Random.Range(0, spawnPoits.Length);//spawn position
-        GameObject newEnemy = Instantiate(enemies[i], spawnPoits[j].position, Quaternion.identity);
-        //expensive call
-        Enemy _enemy = newEnemy.GetComponent<Enemy>();
-        _enemy.moveDirection = new Vector3(Random.Range(-2f,2f),Random.Range(0f,3.5f),0f) - spawnPoits[j].position;
-        
-        
 
-        yield return new WaitForSeconds(spawnInterval);
+
+        finishSpawning = false;
+        for (int i = 0; i < activeSpawnsCount; i++)
+        {
+            //takek any spawn point and then spawn 
+            //wait for a spawn intervall before spawnning each enemy
+            
+            
+            int k = Random.Range(0, enemies.Length);//enemy to spawn
+            int j = Random.Range(0, spawnPoits.Length);//spawn position
+            yield return new WaitForSeconds(spawnInterval);
+            GameObject newEnemy = Instantiate(enemies[k], spawnPoits[j].position, Quaternion.identity);
+           
+            //expensive call
+             
+            Enemy _enemy = newEnemy.GetComponent<Enemy>();
+            _enemy.moveDirection = new Vector3(Random.Range(-2f, 2f), Random.Range(-4f, -1f), 0f) - spawnPoits[j].position;
+            
+           
+           
+        }
+        finishSpawning = true;
+
+
+        
+        
+        
+        
+       
+       
     }
 }

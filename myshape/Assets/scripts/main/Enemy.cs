@@ -20,7 +20,7 @@ public class Enemy : Mover
         base.Start();
         CalculateSize();
         CalculateSpeed(size);
-        move(moveDirection);
+       
         
         Col = GetComponent<Collider2D>();
              
@@ -28,8 +28,12 @@ public class Enemy : Mover
 
     protected override void Update()
     {
-        base.Update();
+        transform.Translate(moveDirection.normalized * currentSpeed * Time.deltaTime);
+        
     }
+
+   
+
 
 
     //calculate random sprite size 
@@ -44,7 +48,7 @@ public class Enemy : Mover
     void CalculateSpeed(float _size)
     {
         //calculate the speed based on the size of the enemy 
-        currentSpeed = speed * (  1 - (_size-0.5f)/ 0.45f);
+        currentSpeed = speed * (  1 - (_size - 0.6f)/ 0.6f);
     }
 
 
@@ -55,7 +59,7 @@ public class Enemy : Mover
         {
             var _colider = GetComponent<Collider2D>();
             _colider.isTrigger = false;
-            Debug.Log(gameObject.name);
+           // Debug.Log(gameObject.name);
             Col.isTrigger = false;
             
 
@@ -66,22 +70,53 @@ public class Enemy : Mover
     //triggerd when collided with player,walls or anyother enemy 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
-        if(collision.gameObject.tag == "enemy")
-        {
-            CalculateDeflection(collision.GetContact(0).normal, collision.GetContact(0).point);
-        }
 
-        if(collision.gameObject.tag == "Player")
+        Vector3 pointOfcontact = collision.GetContact(0).point;
+        Vector3 normalcontact = collision.GetContact(0).normal;
+        if (collision.gameObject.tag == "Player")
         {
             //for now just destroy itself
             Destroy(gameObject);
         }
+        else if(collision.gameObject.layer == gameObject.layer)
+        {
+            moveDirection = -moveDirection;
+            return;
+        }
+
+        
+        
+        CalculateDeflection(normalcontact, pointOfcontact);
+
+
+
+
+
+
 
 
     }
 
-   
+    protected override void CalculateDeflection(Vector3 normal, Vector3 pointofcontact)
+    {
+       
+       
+            Vector3 temp_newMoveDir = Vector2.Reflect(pointofcontact, normal);
+        if (temp_newMoveDir.magnitude<0.5f)
+        {
+            moveDirection = new Vector3(Random.Range(-2f, 2f), Random.Range(-3f, 3f), 0f);
+            return;
+        }
+        moveDirection = temp_newMoveDir;
+
+
+
+    }
+
+
+
+
+
 
 
 
