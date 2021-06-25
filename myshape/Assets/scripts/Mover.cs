@@ -58,7 +58,7 @@ public class Mover : MonoBehaviour
 
         //zero out the velocity
         
-        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime);
+        rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, 2f*Time.deltaTime);
         
         //apply force in tat direction
         move(newMoveDirection.normalized);

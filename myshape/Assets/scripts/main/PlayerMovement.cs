@@ -8,6 +8,8 @@ public class PlayerMovement : Mover
     Sprite[] playerSprite;
     int i = 0;
     SpriteRenderer _spriteRenderer;
+    public float refletedForce=100f;
+
 
     //unity methods
     #region unity methods
@@ -59,22 +61,49 @@ public class PlayerMovement : Mover
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-       // Debug.Log(collision.gameObject.name);
+        Vector3 pointOfcontact = collision.GetContact(0).point;
+        Vector3 normalcontact = collision.GetContact(0).normal;
 
-        if(collision.gameObject.tag == _spriteRenderer.sprite.name )
+        if (collision.gameObject.tag == _spriteRenderer.sprite.name)
         {
-            //Debug.Log("ok");
+            //do some artistic 
+            //play sound
+            //add a partical effect
+            //increase the size and through it back again
+            Debug.Log("Correct Hit");
+            move(normalcontact.normalized);
+
+
+
+        }
+        else if (collision.gameObject.tag == "walls")
+        {
+            //move(Vector3.Reflect(pointOfcontact, normalcontact));
+        }
+        else if (collision.gameObject.tag == "Lava")
+        {
+            //shooot it in ransom direction or decide what you wna do
         }
         else
         {
-            if (collision.gameObject.tag == "walls") return;
-            //Debug.Log("wrong shit  --  " + collision.gameObject.tag +" != " +_spriteRenderer.sprite.name);
+            //it means the collision is wromg and we should end the game
+        move(normalcontact.normalized);
+
+
+
         }
-
-
+        Debug.DrawRay(transform.position, normalcontact*100f,Color.green);
 
 
     }
+
+    protected override void move(Vector3 moveDir)
+    {
+        rb.velocity = Vector3.zero;
+        rb.AddForce(moveDir* refletedForce);
+    }
+
+
 
     #endregion
 

@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
 
         //increse the spawn time between waves
         if (spawnWaveInterval > maxSpawnWaveinterval) spawnWaveInterval = maxSpawnWaveinterval;
-        spawnWaveInterval += activeSpawnsCount*0.2f; 
+        spawnWaveInterval = spawnWaveInterval +1; 
 
         //increased the spawn count after 20 sec
         if (activeSpawnsCount>maxSpawnCount)
@@ -89,7 +89,9 @@ public class Spawner : MonoBehaviour
             
             int k = Random.Range(0, enemies.Length);//enemy to spawn
             int j = Random.Range(0, spawnPoits.Length);//spawn position
+            //Debug.Log(activeSpawnsCount + " -" + Time.time +" "+i);
             yield return new WaitForSeconds(spawnInterval);
+            //Debug.Log(activeSpawnsCount + "__" +Time.time+" "+i);
             GameObject newEnemy = Instantiate(enemies[k], spawnPoits[j].position, Quaternion.identity);
            
             //expensive call

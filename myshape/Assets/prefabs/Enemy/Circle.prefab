@@ -93,7 +93,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 4117950807728191550}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3fbfdbe86ea61904da3d7fd6b1d536ce, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c27981e1bc624845868f9824984586c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.75
+  speed: 0.85
   moveForce: 0
   moveDirections: {x: 0, y: 0, z: 0}
   minSize: 0.6
