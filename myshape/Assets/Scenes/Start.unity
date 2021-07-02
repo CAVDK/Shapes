@@ -252,7 +252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 325}
+  m_AnchoredPosition: {x: 0, y: 372}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &401171646
@@ -693,7 +693,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endColor: {r: 0.6392157, g: 0.15686275, b: 1, a: 1}
   colorUpdateRate: 2
-  colors: []
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.6906122, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.6231971, a: 1}
+  - {r: 0, g: 0.9348867, b: 1, a: 1}
+  - {r: 0.5451994, g: 0, b: 1, a: 1}
 --- !u!1 &837003058
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 325}
+  m_AnchoredPosition: {x: 0, y: 372}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &837003060
@@ -1134,7 +1139,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 325}
+  m_AnchoredPosition: {x: 0, y: 372}
   m_SizeDelta: {x: 623.5681, y: 175.14508}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1333589721
@@ -1336,7 +1341,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1429388851}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 994296791}
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1429388851
 MonoBehaviour:
   m_ObjectHideFlags: 0

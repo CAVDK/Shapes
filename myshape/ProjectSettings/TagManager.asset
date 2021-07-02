@@ -10,6 +10,9 @@ TagManager:
   - circle
   - square
   - triangle
+  - sphere
+  - cube
+  - Trigger
   layers:
   - Default
   - TransparentFX
@@ -23,7 +26,7 @@ TagManager:
   - Enemy
   - Walls
   - Trigger
-  - 
+  - misc
   - 
   - 
   - 

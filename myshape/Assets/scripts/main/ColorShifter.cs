@@ -27,7 +27,7 @@ public class ColorShifter : MonoBehaviour
 
     IEnumerator ChangeColor()
     {
-        endColor = Random.ColorHSV(0.8f,1,0.8f,1f,0.8f,1f,0.8f,1);// colors[Random.Range(0, colors.Length)];
+        endColor = colors[Random.Range(0, colors.Length)];
         yield return new WaitForSeconds(colorUpdateRate);
         
     }
