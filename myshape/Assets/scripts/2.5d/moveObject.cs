@@ -9,6 +9,7 @@ public class moveObject : MonoBehaviour
     public float currentSpeed;
     public float forceAppliedToMove;
     public float bounceMultiplier;
+   
 
    protected virtual void Start()
     {

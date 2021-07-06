@@ -14,7 +14,7 @@ public class Enemy3D :moveObject
         coll = GetComponent<Collider>();
 
         coll.isTrigger = true;
-        Debug.Log(coll.isTrigger);
+        //Debug.Log(coll.isTrigger);
         currentSpeed = enemySpeed;
        // moveDirection = new Vector3(Random.Range(1f, 9f), Random.Range(1f, 9f), 0f).normalized;
       //  MoveTheObject(moveDirection * forceAppliedToMove);
@@ -23,10 +23,22 @@ public class Enemy3D :moveObject
     protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);
-        Debug.Log(collision.gameObject.tag);
+       // Debug.Log(collision.gameObject.tag);
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            if(gameObject.tag== "cube")
+            {
+                GameController.insatance.pool.inactiveCube.Add(gameObject);
+            }else if(gameObject.tag == "sphere")
+            {
+                GameController.insatance.pool.inactiveSphere.Add(gameObject);
+            }
+            else
+            {
+                GameController.insatance.pool.inactiveTriangle.Add(gameObject);
+            }
+            GameController.insatance.pool.activeEnemy.Remove(gameObject);
         }
     }
 
@@ -39,6 +51,7 @@ public class Enemy3D :moveObject
     }
     private void FixedUpdate()
     {
+        
         MoveTheObject(moveDirection);
     }
     public void MoveTheEnemy()

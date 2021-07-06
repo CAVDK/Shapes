@@ -8,7 +8,10 @@ public class movemnt3d : moveObject
     public GameObject[] playerBody;
     int indexOfplayer =0;
     public string playerName;
-
+    public LayerMask enemyMask;
+    
+    
+    
     
     protected override void Start()
     {
@@ -58,11 +61,22 @@ public class movemnt3d : moveObject
     protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);
-        if(collision.gameObject.layer.ToString() == "Enemy" )
+       
+
+        if (collision.gameObject.layer.ToString() == "9" )//9th layer is the enemy layer
         {
+            
             if(collision.gameObject.tag != playerName)
             {
                 //vall game manager
+                Debug.Log("wrong");
+                GameController.insatance.playerLifeLeft--;
+                if(GameController.insatance.playerLifeLeft<=0)
+                {
+                    GameController.insatance.Death();
+                }
+                Debug.Log(GameController.insatance.playerLifeLeft);
+                
             }
         }
         

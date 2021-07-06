@@ -21,9 +21,19 @@ public class spawnEnemy : MonoBehaviour
     //
     public float updateCredenialTime;
 
-    public float enemySpeedMultiplier = 0.8f;
+    public float enmeySpeed = 5;
+    public float enemySpeedMultiplier = 0.6f;
 
     public bool finisedSpawnning;
+
+    public bool canSpawn = true;
+
+    EnemyPool pool;
+
+    private void Awake()
+    {
+        pool = FindObjectOfType<EnemyPool>();
+    }
     private void Start()
     {
 
@@ -54,7 +64,8 @@ public class spawnEnemy : MonoBehaviour
 
     private void Update()
     {
-        if(Time.time - currTime > waveInterval)
+        if (!canSpawn) return;
+        if(Time.time - currTime > waveInterval  )
         {
             if(finisedSpawnning)
             {
@@ -102,11 +113,14 @@ public class spawnEnemy : MonoBehaviour
         int i = Random.Range(0, enmeyPrefab.Length);
         int j = Random.Range(0, spawnLocation.Length);
 
-        GameObject newEnemy = Instantiate(enmeyPrefab[i], spawnLocation[j].position, Quaternion.identity);
-        newEnemy.GetComponent<Enemy3D>().enemySpeed *= enemySpeedMultiplier;
+        GameObject newEnemy = pool.GetInActiveEnemy(enmeyPrefab[i].tag);
+       
+        newEnemy.transform.position = spawnLocation[j].position;
+        newEnemy.GetComponent<Enemy3D>().enemySpeed = enmeySpeed*enemySpeedMultiplier;
         newEnemy.GetComponent<Enemy3D>().moveDirection = new Vector3(Random.Range(minTarPos.x,maxTarPos.x),Random.Range(minTarPos.y,maxTarPos.y ),0f) 
             -spawnLocation[i].position;
         newEnemy.GetComponent<Collider>().isTrigger = true;
+        newEnemy.SetActive(true);
 
         yield return new WaitForSeconds(indiavideualSpawnInterval);
     }
