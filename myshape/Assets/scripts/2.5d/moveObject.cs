@@ -20,10 +20,15 @@ public class moveObject : MonoBehaviour
     protected virtual void Update()
     {
         //just so that my velocity does no goo burrrrr
-        rb.velocity = rb.velocity.normalized * currentSpeed*Time.deltaTime;
+        rb.velocity = Vector3.zero;
+
+       
+
         Vector3 currentPosition = transform.position;
         currentPosition.z = 0;
         transform.position = currentPosition;
+        transform.Translate(moveDirection.normalized * Time.deltaTime * currentSpeed);
+        
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -33,12 +38,13 @@ public class moveObject : MonoBehaviour
         Vector3 collisonPosition = collision.GetContact(0).point;
         Vector3 newDirection = GetCollisionReflection(collisonNormal, collisonPosition);
         moveDirection = newDirection;
-        MoveTheObject(newDirection*forceAppliedToMove*bounceMultiplier);
+      //  StartCoroutine("GetSpeedTime");
+        // MoveTheObject(newDirection*forceAppliedToMove*bounceMultiplier);
     }
+   
 
-    
 
-  protected virtual  Vector3 GetCollisionReflection(Vector3 normal ,Vector3 position)
+    protected virtual  Vector3 GetCollisionReflection(Vector3 normal ,Vector3 position)
     {
         Vector3 newDirection = Vector3.Reflect(moveDirection, normal);
         moveDirection.z = 0f;

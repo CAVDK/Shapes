@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 public class GameController : MonoBehaviour
 {
     public bool playerActive;
@@ -10,23 +11,32 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int totalPlayerLife;
     public int playerLifeLeft;
-    
+
+    public GameObject[] healthIcons;
     
 
     public GameObject player;
+    public movemnt3d playerMovementScript;
 
     [SerializeField]
     private spawnEnemy _spawnEnemy;
     public EnemyPool pool;
 
-    public static GameController insatance { get; set; }
+    public static GameController insatance { get; set; }//abstraction
 
     public Animator resumeAndPause;
     public Animator deathAnimator;
 
+    //player score
+    public int playerScore =0 ;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI deathscore;
+
+
     //future use maybe
 
-    public  Button pauseButton;
+    public bool gameEnd = false;
+
 
     private void Awake()
     {
@@ -39,43 +49,69 @@ public class GameController : MonoBehaviour
     {
         playerLifeLeft = totalPlayerLife;
         _spawnEnemy.canSpawn = true;
+        scoreText.text = "0";
 
     }
 
 
     public void Death()
     {
-        pauseButton.interactable = false;
+        gameEnd = true;
         deathAnimator.SetTrigger("death");
-        Time.timeScale = 0f;
+       
+        deathscore.text = playerScore.ToString();
         player.SetActive(false);
         _spawnEnemy.canSpawn = false;
-        FindObjectOfType<EnemyPool>().ClearActiveArray();
+       
+        Time.timeScale = 0f;
         //add a slow motion effect 
         //add a death window
-        
-       
-        
+
+
+
     }
 
     public void ResumeClicked()
     {
-        _spawnEnemy.canSpawn = true;
         Time.timeScale = 1f;
+        _spawnEnemy.canSpawn = true;
         resumeAndPause.SetTrigger("resumePressed");
+       
     }
 
     public void PauseClicked()
     {
-        _spawnEnemy.canSpawn = false;
-        Time.timeScale = 0f;
+        if (gameEnd) return;
+
+        _spawnEnemy.canSpawn = false;       
         resumeAndPause.SetTrigger("pausePressed");
+        Time.timeScale = 0f;
     }
 
     public void Home()
     {
         Time.timeScale = 1f;//pause menu makes the timeline to 0 
         SceneManager.LoadScene(0);//home scene
+    }
+
+    public void UpdateHealth()
+    {
+       for(int i=1;i<=3;i++)
+        {
+            if(i<=playerLifeLeft)
+            {
+                healthIcons[i - 1].SetActive(true);
+            }else if(i>playerLifeLeft)
+            {
+                healthIcons[i - 1].SetActive(false);
+            }
+        }
+    }
+
+    public void UpdateScore()
+    {
+        playerScore++;
+        scoreText.text = playerScore.ToString();
     }
 
     

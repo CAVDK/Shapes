@@ -81,7 +81,7 @@ MonoBehaviour:
   currentSpeed: 0
   forceAppliedToMove: 350
   bounceMultiplier: 2
-  enemySpeed: 60
+  enemySpeed: 1
   coll: {fileID: 793060192871333313}
 --- !u!1 &7980454428596819507
 GameObject:

@@ -20,6 +20,7 @@ public class ColorShifter : MonoBehaviour
 
     private void Update()
     {
+        
         image.color = Color.Lerp(image.color, endColor, Time.deltaTime );
         if(endColor == image.color)
         StartCoroutine(ChangeColor());

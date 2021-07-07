@@ -74,7 +74,7 @@ public class Spawn : MonoBehaviour
 
             Enemy3D _enemy = newEnemy.GetComponent<Enemy3D>();
             _enemy.moveDirection = NewMoveDirectionGrnrator() - spawnPoints[j].position;
-            _enemy.MoveTheEnemy();
+            
 
 
         }

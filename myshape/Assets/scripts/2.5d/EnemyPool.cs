@@ -6,10 +6,12 @@ using System.Linq;
 public class EnemyPool : MonoBehaviour
 {
     public int poolSize;
+    public Transform parents;
 
     public GameObject cubeEnemy;
     public GameObject sphereEnemy;
     public GameObject triangleEnemy;
+    public GameObject heal;
 
 
 
@@ -17,7 +19,8 @@ public class EnemyPool : MonoBehaviour
     public List<GameObject> inactiveTriangle = new List<GameObject>();
     public List<GameObject> inactiveSphere = new List<GameObject>();
     public List<GameObject> activeEnemy = new List<GameObject>();
-
+    public List<GameObject> heals = new List<GameObject>();
+    public List<GameObject> activePowerups = new List<GameObject>();
    
     
 
@@ -30,8 +33,15 @@ public class EnemyPool : MonoBehaviour
             MakeNewSphere();
             MakeNewTriangle();
         }
+        GenrateHeals();
     }
+    
 
+    private void OnDisable()
+    {
+        ClearActiveArray();
+        ClearPowerUpsArray();
+    }
     private void MakeNewCube()
     {
         MakeNewEnemy(cubeEnemy);
@@ -46,6 +56,18 @@ public class EnemyPool : MonoBehaviour
     private void MakeNewTriangle()
     {
         MakeNewEnemy(triangleEnemy);
+    }
+
+    public  void GenrateHeals()
+    {
+       for(int i=0;i<2;i++)
+        {
+            GameObject healObj = Instantiate(heal, transform.position, Quaternion.identity);
+            healObj.transform.parent = parents;
+            healObj.SetActive(false);
+            heals.Add(healObj);
+
+        }
     }
 
     private void MakeNewEnemy(GameObject enemyPrefab)
@@ -129,10 +151,16 @@ public class EnemyPool : MonoBehaviour
         activeEnemy.Clear();
     }
 
-    public void StopCurrentActiveObj()
+    public void ClearPowerUpsArray()
     {
-        
+        foreach (GameObject go in activePowerups)
+        {
+            go.SetActive(false);
+            heals.Add(go);
+            activePowerups.Remove(go);
+        }
     }
+    
      
 
     

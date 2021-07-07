@@ -13,6 +13,11 @@ TagManager:
   - sphere
   - cube
   - Trigger
+  - circleEnemy
+  - squareEnemy
+  - triangEnemy
+  - lava
+  - heal
   layers:
   - Default
   - TransparentFX
@@ -27,7 +32,7 @@ TagManager:
   - Walls
   - Trigger
   - misc
-  - 
+  - heals
   - 
   - 
   - 

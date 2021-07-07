@@ -20,6 +20,7 @@ public class Enemy3D :moveObject
       //  MoveTheObject(moveDirection * forceAppliedToMove);
     }
 
+    
     protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);
@@ -49,14 +50,10 @@ public class Enemy3D :moveObject
             coll.isTrigger = false;
         }
     }
-    private void FixedUpdate()
-    {
-        
-        MoveTheObject(moveDirection);
-    }
+    
     public void MoveTheEnemy()
     {
-        MoveTheObject(moveDirection);
+       // MoveTheObject(moveDirection);
     }
 
 

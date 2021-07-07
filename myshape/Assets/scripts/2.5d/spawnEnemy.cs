@@ -27,18 +27,33 @@ public class spawnEnemy : MonoBehaviour
     public bool finisedSpawnning;
 
     public bool canSpawn = true;
+    [SerializeField] Transform parentGameObj;
+
+    public float incrementInForce;
+    public float maxPlayerForce;
 
     EnemyPool pool;
+
+    //power up spawnner
+    // 1-  heal
+    public float powerUpSpawnInterval;
+    private float lastpowerSpawn;
+    public float maxPowerUpSpawninterval;
 
     private void Awake()
     {
         pool = FindObjectOfType<EnemyPool>();
+        lastpowerSpawn = Time.time;
     }
     private void Start()
     {
-
-
         InvokeRepeating("UpdateSpawnintervals", 45f, updateCredenialTime);
+        lastpowerSpawn = Time.time;
+    }
+    private void OnEnable()
+    {
+        lastpowerSpawn = Time.time;
+        currTime = Time.time;
     }
 
     private void UpdateSpawnintervals()
@@ -48,15 +63,23 @@ public class spawnEnemy : MonoBehaviour
         if (i < 50)
         {
             spawninterval -= 0.2f;
+            waveInterval -= 0.3f;
         }
         else
         {
-            enemySpeedMultiplier += 0.2f;
+             enemySpeedMultiplier += 0.1f;
             if(enemySpeedMultiplier > 1.8f)
             {
                 enemySpeedMultiplier = 1.8f;
             }
         }
+
+        GameController.insatance.playerMovementScript.forceAppliedToMove += incrementInForce;
+        if(GameController.insatance.playerMovementScript.forceAppliedToMove > maxPlayerForce)
+        {
+            GameController.insatance.playerMovementScript.forceAppliedToMove = maxPlayerForce;
+        }
+
         enemyCount = (int)(Time.timeSinceLevelLoad / 60f);
         if (enemyCount > maxEnemyCount) enemyCount = maxEnemyCount;
         
@@ -64,11 +87,19 @@ public class spawnEnemy : MonoBehaviour
 
     private void Update()
     {
+        if(Time.time - lastpowerSpawn > powerUpSpawnInterval)
+        {
+            SpawnPowerUps();
+            lastpowerSpawn = Time.time;
+            powerUpSpawnInterval = Random.Range(5f, maxPowerUpSpawninterval);
+
+        }
         if (!canSpawn) return;
         if(Time.time - currTime > waveInterval  )
         {
             if(finisedSpawnning)
             {
+        
                 StartCoroutine("SpawnNow");
                 currTime = Time.time;
             }
@@ -112,17 +143,50 @@ public class spawnEnemy : MonoBehaviour
         //instantialte the enemy
         int i = Random.Range(0, enmeyPrefab.Length);
         int j = Random.Range(0, spawnLocation.Length);
-
         GameObject newEnemy = pool.GetInActiveEnemy(enmeyPrefab[i].tag);
-       
+        newEnemy.transform.parent = parentGameObj;
+
         newEnemy.transform.position = spawnLocation[j].position;
-        newEnemy.GetComponent<Enemy3D>().enemySpeed = enmeySpeed*enemySpeedMultiplier;
-        newEnemy.GetComponent<Enemy3D>().moveDirection = new Vector3(Random.Range(minTarPos.x,maxTarPos.x),Random.Range(minTarPos.y,maxTarPos.y ),0f) 
-            -spawnLocation[i].position;
+        //newEnemy.GetComponent<Enemy3D>().enemySpeed = enmeySpeed * enemySpeedMultiplier;
+        newEnemy.GetComponent<Enemy3D>().moveDirection = new Vector3(Random.Range(minTarPos.x, maxTarPos.x), Random.Range(minTarPos.y, maxTarPos.y), 0f)
+            - spawnLocation[j].position;
         newEnemy.GetComponent<Collider>().isTrigger = true;
         newEnemy.SetActive(true);
-
+        newEnemy.GetComponent<Rigidbody>().velocity = Vector3.zero;
+       
+        if (pool.activeEnemy.Count == 0 && !finisedSpawnning)
+            yield return new WaitForSeconds(0.5f);
+        else
         yield return new WaitForSeconds(indiavideualSpawnInterval);
+    }
+
+    public void SpawnPowerUps()
+    {
+        int i = Random.Range(0, 9999);
+        if (i < 5000)
+       {
+            //randomly spawn a powerup
+            //heals
+            if (pool.heals.Count == 0) pool.GenrateHeals();
+            int j = Random.Range(0, spawnLocation.Length);
+            GameObject newPowerup = pool.heals[0];
+            heart newHeart = newPowerup.GetComponent<heart>();
+            pool.activePowerups.Add(newPowerup);
+            pool.heals.Remove(newPowerup);
+            newPowerup.transform.position = spawnLocation[j].position;
+         //   newHeart.currentSpeed *= enemySpeedMultiplier;
+            ;
+            newHeart.moveDirection = new Vector3(Random.Range(minTarPos.x, maxTarPos.x), Random.Range(minTarPos.y, maxTarPos.y), 0f)
+    - spawnLocation[j].position;
+
+            newPowerup.GetComponent<Collider>().isTrigger = true;
+            newPowerup.SetActive(true);
+
+
+
+
+
+       }
     }
 
 
