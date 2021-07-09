@@ -35,12 +35,17 @@ public class EnemyPool : MonoBehaviour
         }
         GenrateHeals();
     }
-    
-
-    private void OnDisable()
+    private void OnEnable()
     {
         ClearActiveArray();
         ClearPowerUpsArray();
+    }
+
+
+    private void Update()
+    {
+       
+        
     }
     private void MakeNewCube()
     {
@@ -135,7 +140,7 @@ public class EnemyPool : MonoBehaviour
     {
         foreach(GameObject obj in activeEnemy)
         {
-            obj.SetActive(false);
+            
             if(obj.tag == "cube")
             {
                 inactiveCube.Add(obj);
@@ -147,6 +152,7 @@ public class EnemyPool : MonoBehaviour
             {
                 inactiveTriangle.Add(obj);
             }
+            obj.SetActive(false);
         }
         activeEnemy.Clear();
     }

@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 196d590a04e4fab44a259f69a64b8750, type: 2}
+  - {fileID: 2100000, guid: d3c576a4b6378794da50cb1b0d317e58, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   rb: {fileID: 129906940140141992}
   moveDirection: {x: 0, y: 0, z: 0}
   currentSpeed: 0
-  forceAppliedToMove: 1
+  forceAppliedToMove: 3
   bounceMultiplier: 0.8
-  enemySpeed: 0.5
+  enemySpeed: 2
   coll: {fileID: 129906940140141993}

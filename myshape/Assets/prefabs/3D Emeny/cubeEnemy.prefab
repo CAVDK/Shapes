@@ -126,7 +126,7 @@ MonoBehaviour:
   rb: {fileID: 6628520692058584253}
   moveDirection: {x: 0, y: 0, z: 0}
   currentSpeed: 0
-  forceAppliedToMove: 1
+  forceAppliedToMove: 3
   bounceMultiplier: 0.8
-  enemySpeed: 0.5
+  enemySpeed: 2
   coll: {fileID: 6628520692058584254}
