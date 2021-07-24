@@ -49,11 +49,18 @@ public class spawnEnemy : MonoBehaviour
     {
         InvokeRepeating("UpdateSpawnintervals", 45f, updateCredenialTime);
         lastpowerSpawn = Time.time;
+        canSpawn = true;
+        enemyCount = 1;
+        currTime = Time.time - spawninterval;
+        spawninterval = 3f;
+        waveInterval = 4f;
+        enemySpeedMultiplier = 0.5f;
     }
     private void OnEnable()
     {
         lastpowerSpawn = Time.time;
         currTime = Time.time;
+        
     }
 
     private void UpdateSpawnintervals()
@@ -111,12 +118,9 @@ public class spawnEnemy : MonoBehaviour
     IEnumerator SpawnNow()
     {
         finisedSpawnning = false;
-        int i = Random.Range(1, 1000);
+        int i = Random.Range(1, 500);
         int count=1;
-        if(i<10)
-        {
-            count = enemyCount;
-        }else if(i>100 && i<50)
+         if(i<70 && i>60)
         {
             count = 3;
         }else if(count>100 && count<300)
@@ -141,6 +145,12 @@ public class spawnEnemy : MonoBehaviour
     IEnumerator SpawnIt()
     {
         //instantialte the enemy
+       
+       
+        if (pool.activeEnemy.Count == 0 && !finisedSpawnning)
+            yield return new WaitForSeconds(1f);
+        else
+        yield return new WaitForSeconds(indiavideualSpawnInterval);
         int i = Random.Range(0, enmeyPrefab.Length);
         int j = Random.Range(0, spawnLocation.Length);
         GameObject newEnemy = pool.GetInActiveEnemy(enmeyPrefab[i].tag);
@@ -148,16 +158,11 @@ public class spawnEnemy : MonoBehaviour
 
         newEnemy.transform.position = spawnLocation[j].position;
         //newEnemy.GetComponent<Enemy3D>().enemySpeed = enmeySpeed * enemySpeedMultiplier;
-        newEnemy.GetComponent<Enemy3D>().moveDirection = new Vector3(Random.Range(minTarPos.x, maxTarPos.x), Random.Range(minTarPos.y, maxTarPos.y), 0f)
-            - spawnLocation[j].position;
+        newEnemy.GetComponent<Enemy3D>().moveDirection = new Vector3(Random.Range(minTarPos.x, maxTarPos.x),
+            Random.Range(minTarPos.y, maxTarPos.y), 0f) - spawnLocation[j].position;
         newEnemy.GetComponent<Collider>().isTrigger = true;
         newEnemy.SetActive(true);
         newEnemy.GetComponent<Rigidbody>().velocity = Vector3.zero;
-       
-        if (pool.activeEnemy.Count == 0 && !finisedSpawnning)
-            yield return new WaitForSeconds(0.5f);
-        else
-        yield return new WaitForSeconds(indiavideualSpawnInterval);
     }
 
     public void SpawnPowerUps()
@@ -181,9 +186,6 @@ public class spawnEnemy : MonoBehaviour
 
             newPowerup.GetComponent<Collider>().isTrigger = true;
             newPowerup.SetActive(true);
-
-
-
 
 
        }

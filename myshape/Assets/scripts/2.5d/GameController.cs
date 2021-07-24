@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
     //future use maybe
 
     public bool gameEnd = false;
+    public float slowDownfactor;
 
 
     private void Awake()
@@ -50,6 +51,8 @@ public class GameController : MonoBehaviour
         playerLifeLeft = totalPlayerLife;
         _spawnEnemy.canSpawn = true;
         scoreText.text = "0";
+        gameEnd = false;
+        
 
     }
 
@@ -57,15 +60,30 @@ public class GameController : MonoBehaviour
     public void Death()
     {
         gameEnd = true;
-        deathAnimator.SetTrigger("death");
-       
+        _spawnEnemy.canSpawn = false;
         deathscore.text = playerScore.ToString();
         player.SetActive(false);
-        _spawnEnemy.canSpawn = false;
        
-        Time.timeScale = 0f;
+        StartCoroutine("PlayerDeath");
+        //Time.timeScale = 0f;
         //add a slow motion effect 
         //add a death window
+
+
+
+    }
+    IEnumerator PlayerDeath()
+    {
+        //Play partical effect
+        
+        Time.timeScale = 1 / slowDownfactor;
+       
+        yield return new WaitForSeconds(1 / slowDownfactor);
+        Time.timeScale = 1f;
+        
+        deathAnimator.SetTrigger("death");
+
+
 
 
 
