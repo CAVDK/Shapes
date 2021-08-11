@@ -19,8 +19,9 @@ public class GameController : MonoBehaviour
     public movemnt3d playerMovementScript;
 
     [SerializeField]
-    private spawnEnemy _spawnEnemy;
+    private spawnEnemy _spawnEnemy;//remove it
     public EnemyPool pool;
+   
 
     public static GameController insatance { get; set; }//abstraction
 
@@ -33,6 +34,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI deathscore;
 
 
+    public ParticleSystem cubePartical;
+    public ParticleSystem spherePartical;
+    public ParticleSystem prismPartical;
+
+
+
     //future use maybe
 
     public bool gameEnd = false;
@@ -42,8 +49,11 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         insatance = this;
-        _spawnEnemy = FindObjectOfType<spawnEnemy>();
+        _spawnEnemy = FindObjectOfType<spawnEnemy>();//rmove it 
         pool = FindObjectOfType<EnemyPool>();
+        
+
+       
         
     }
     private void Start()
@@ -52,10 +62,12 @@ public class GameController : MonoBehaviour
         _spawnEnemy.canSpawn = true;
         scoreText.text = "0";
         gameEnd = false;
+       
+
         
 
     }
-
+  
 
     public void Death()
     {
@@ -132,7 +144,31 @@ public class GameController : MonoBehaviour
         scoreText.text = playerScore.ToString();
     }
 
-    
+   public void PlayParticalEffects(Vector3 pos, string goname)
+    {
+        ParticleSystem psTemp = null;
+        switch (goname)
+        {
+            case "cubeParticle":
+                
+                psTemp = Instantiate(cubePartical, pos, cubePartical.gameObject.transform.rotation);
+                psTemp.Play(true);
+                Destroy(psTemp.gameObject, 2f);
+                break;
+            case "sphereParticle":
+                psTemp = Instantiate(spherePartical, pos, cubePartical.gameObject.transform.rotation);
+                psTemp.Play(true);
+                Destroy(psTemp.gameObject, 2f);
+                break;
+            case "prismParticle":
+                psTemp = Instantiate(prismPartical, pos, cubePartical.gameObject.transform.rotation);
+                psTemp.Play(true);
+                Destroy(psTemp.gameObject, 2f);
+                break;
+        }
+        
+    }
+
 
 
 

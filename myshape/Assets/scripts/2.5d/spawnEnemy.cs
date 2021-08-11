@@ -134,9 +134,10 @@ public class spawnEnemy : MonoBehaviour
 
         for(int j=0;j<count;j++)
         {
+            yield return new WaitForSeconds(spawninterval);
             StartCoroutine("SpawnIt");
         }
-        yield return new WaitForSeconds(spawninterval);
+      //  yield return new WaitForSeconds(spawninterval);
         finisedSpawnning = true;
 
         

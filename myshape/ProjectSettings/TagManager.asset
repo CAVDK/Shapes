@@ -18,6 +18,9 @@ TagManager:
   - triangEnemy
   - lava
   - heal
+  - cubeParticle
+  - sphereParticle
+  - prismParticle
   layers:
   - Default
   - TransparentFX
@@ -33,7 +36,7 @@ TagManager:
   - Trigger
   - misc
   - heals
-  - 
+  - LAVA
   - 
   - 
   - 

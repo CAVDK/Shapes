@@ -22,7 +22,7 @@ public class ColorChangerUI : MonoBehaviour
         
     }
 
-    void ChangeColors()
+    public void ChangeColors()
     {
         endColor = color[i];
         i++;

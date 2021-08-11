@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class movemnt3d : moveObject
 {
     public float speed;
     public GameObject[] playerBody;
     public MeshRenderer[] playerMesh;
-  
+
+    //camera
+    private Camera _cam;
+
     int indexOfplayer =0;
     public string playerName;
     public LayerMask enemyMask;
@@ -37,6 +41,7 @@ public class movemnt3d : moveObject
     protected override void Start()
     {
         base.Start();
+        _cam = Camera.main;
         currentSpeed = speed;
         playerName = playerBody[indexOfplayer].name;
         canTakeInput = true;
@@ -48,7 +53,7 @@ public class movemnt3d : moveObject
         base.Update();
        
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") )
         {
             UpdatePlayerBody();
             if (!canTakeInput)
@@ -60,7 +65,11 @@ public class movemnt3d : moveObject
             //set material to non input material;
             SetPlayeMaterial(inputUnAvaliableMaterial);
            //update the name look of the player i.e change the shape
-            Vector2 tapPosiiton = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 tapPosiiton = _cam.ScreenToWorldPoint(Input.mousePosition);
+           
+           
+               // Vector2 tapPosiiton = Camera.main.ScreenToWorldPoint(Input.touches[0].position);
+           
             
             // Debug.Log(tapPosiiton);
             Vector3 newMovePos = new Vector3(tapPosiiton.x, tapPosiiton.y, 0);
@@ -122,6 +131,8 @@ public class movemnt3d : moveObject
        //player heal
         if(collision.gameObject.CompareTag("heal"))
         {
+            CameraShaker.Instance.ShakeOnce(1.5f, 1.5f, 0.2f, 0.5f);
+
             //Debug.Log("heal");
             GameController.insatance.playerLifeLeft++;
             GameController.insatance.UpdateHealth();
@@ -137,6 +148,7 @@ public class movemnt3d : moveObject
         if (collision.gameObject.layer.ToString() == "9" )//9th layer is the enemy layer
         {
             
+           
             if(!collision.gameObject.CompareTag(playerName))
             {
                 
@@ -159,7 +171,10 @@ public class movemnt3d : moveObject
 
         if(collision.gameObject.CompareTag("walls") )
         {
-            if(_touch.isEmitting)
+            CameraShaker.Instance.ShakeOnce(1.5f, 1.5f, 0.2f, 0.5f);
+
+
+            if (_touch.isEmitting)
             {
                 _touch_1.gameObject.transform.position = collision.GetContact(0).point;
                 _touch_1.gameObject.SetActive(true);

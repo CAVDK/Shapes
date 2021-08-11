@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c6d515a40df83a34ba5b94c5fff68359, type: 2}
+  - {fileID: 2100000, guid: 0d94d2eec67783d41b0bb980366507b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,3 +130,4 @@ MonoBehaviour:
   bounceMultiplier: 0.8
   enemySpeed: 2
   coll: {fileID: 6628520692058584254}
+  ps: {fileID: 1040648005089363610, guid: a3e955a31cd5a7a46945003df7ce1abc, type: 3}

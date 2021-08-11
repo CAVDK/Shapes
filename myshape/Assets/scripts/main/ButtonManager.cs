@@ -41,19 +41,27 @@ public class ButtonManager : MonoBehaviour
     public void SettingPressed()
     {
         //  LeanTween.rotateAround(_buttons[1], Vector3.forward, 360f, 2f).setEasePunch();
+        _buttons[1].LeanCancel();
+        
+       
         _buttons[1].LeanRotateZ(540f, 2f).setEasePunch();
         OnButtonPressed(1);
     }
 
     public void ShopPressed()
     {
-        _buttons[2].LeanRotateY(720, 1.5f).setEasePunch();
+        _buttons[2].LeanCancel();
+
+        _buttons[2].LeanRotateY(540f, 1.5f).setEasePunch();
 
         OnButtonPressed(2);
     }
 
     public void SocialPressed()
     {
+        _buttons[3].LeanCancel();
+        
+
         _buttons[3].LeanScale(Vector3.zero, 2f).setEasePunch();
         OnButtonPressed(3);
     }
@@ -63,6 +71,15 @@ public class ButtonManager : MonoBehaviour
     void OnButtonPressed(int j)
     {
         buttonPressed = !buttonPressed;
+        if(j==3)
+        {
+            _buttons[j].GetComponentInChildren<ColorChangerUI>().ChangeColors();
+        }
+        else
+        {
+            _buttons[j].GetComponent<ColorChangerUI>().ChangeColors();
+        }
+        
         
         if(buttonPressed)
         {
@@ -77,7 +94,7 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-
+    //i should hav enot used two methods i could have dont it in one but am tired
     void MoveButtonToPoint(int j)
     {
         for (int i = 0; i < _buttons.Length; i++)
